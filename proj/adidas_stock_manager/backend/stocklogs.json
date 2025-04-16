@@ -1,0 +1,16 @@
+[
+  {
+    "productId": { "$oid": "507f1f77bcf86cd799439011" },
+    "productName": "Ultraboost 22",
+    "quantity": 50,
+    "action": "Ajout",
+    "datetime": { "$date": "2023-05-11T10:30:00Z" }
+  },
+  {
+    "productId": { "$oid": "507f1f77bcf86cd799439012" }, 
+    "productName": "NMD_R1",
+    "quantity": 25,
+    "action": "Retrait",
+    "datetime": { "$date": "2023-05-11T14:45:00Z" }
+  }
+]

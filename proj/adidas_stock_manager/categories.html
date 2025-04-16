@@ -1,0 +1,237 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Catégories</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-white text-black">
+    <div class="bg-yellow-400 p-4 flex justify-between items-center">
+        <h1 class="text-black text-2xl font-bold">GESTION DES CATÉGORIES</h1>
+        <button class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Déconnexion
+        </button>
+    </div>
+    <div class="flex flex-col md:flex-row">
+        <div class="bg-gray-900 text-white p-4 w-full md:w-1/4">
+            <ul class="space-y-4">
+                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="dashboard.html">Tableau de Bord</a></li>
+                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="list_product.html">Liste des Produits</a></li>
+                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="add_edit_product.html">Ajouter/Modifier Produit</a></li>
+                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="stock_logs.html">Historique des Stocks</a></li>
+                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="categories.html">Gestion des Catégories</a></li>
+                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="suppliers.html">Fournisseurs</a></li>
+            </ul>
+        </div>
+        <div class="p-8 w-full md:w-3/4">
+            <h1 class="text-3xl font-bold mb-8">Gestion des Catégories</h1>
+            <div class="flex justify-end mb-4">
+                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" onclick="openAddCategoryModal()">
+                    <i class="fas fa-plus"></i> Ajouter Catégorie
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Nom de la Catégorie</th>
+                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoryTableBody">
+                        <!-- Les catégories seront chargées dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour ajouter une catégorie -->
+    <div id="addCategoryModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg w-1/2">
+            <h2 class="text-2xl font-bold mb-4">Ajouter une Catégorie</h2>
+            <form id="addCategoryForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700">Nom de la Catégorie</label>
+                    <input type="text" id="categoryName" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700 mr-2" onclick="closeAddCategoryModal()">Annuler</button>
+                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal pour éditer une catégorie -->
+    <div id="editCategoryModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-8 rounded-lg w-1/2">
+            <h2 class="text-2xl font-bold mb-4">Modifier une Catégorie</h2>
+            <form id="editCategoryForm">
+                <input type="hidden" id="editCategoryId">
+                <div class="mb-4">
+                    <label class="block text-gray-700">Nom de la Catégorie</label>
+                    <input type="text" id="editCategoryName" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700 mr-2" onclick="closeEditCategoryModal()">Annuler</button>
+                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Modifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication on page load
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                // User is not logged in, redirect to login
+                window.location.href = 'login.html';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCategories();
+        });
+
+        function loadCategories() {
+            fetch('/api/categories')
+                .then(response => {
+                    if (!response.ok) throw new Error('Erreur réseau');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        renderCategories(data.categories);
+                    } else {
+                        console.error('Erreur:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+        }
+
+        function renderCategories(categories) {
+            const categoryTableBody = document.getElementById('categoryTableBody');
+            categoryTableBody.innerHTML = '';
+
+            categories.forEach(category => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td class="py-2 px-4 border-b border-gray-300">${category.name}</td>
+                    <td class="py-2 px-4 border-b border-gray-300">
+                        <button class="bg-yellow-500 text-white py-1 px-2 rounded hover:bg-yellow-700 mr-2" onclick="openEditCategoryModal('${category.id}', '${category.name}')">
+                            <i class="fas fa-edit"></i> Modifier
+                        </button>
+                        <button class="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-700" onclick="deleteCategory('${category.id}', '${category.name}')">
+                            <i class="fas fa-trash"></i> Supprimer
+                        </button>
+                    </td>
+                `;
+                categoryTableBody.appendChild(newRow);
+            });
+        }
+
+        function openAddCategoryModal() {
+            document.getElementById('addCategoryModal').classList.remove('hidden');
+        }
+
+        function closeAddCategoryModal() {
+            document.getElementById('addCategoryModal').classList.add('hidden');
+        }
+
+        function openEditCategoryModal(categoryId, categoryName) {
+            document.getElementById('editCategoryId').value = categoryId;
+            document.getElementById('editCategoryName').value = categoryName;
+            document.getElementById('editCategoryModal').classList.remove('hidden');
+        }
+
+        function closeEditCategoryModal() {
+            document.getElementById('editCategoryModal').classList.add('hidden');
+        }
+
+        document.getElementById('addCategoryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('categoryName').value;
+
+            const formData = new FormData();
+            formData.append('name', name);
+
+            fetch('/api/categories', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Erreur réseau');
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    document.getElementById('addCategoryForm').reset();
+                    closeAddCategoryModal();
+                    loadCategories();
+                } else {
+                    console.error('Erreur:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
+        });
+
+        document.getElementById('editCategoryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const categoryId = document.getElementById('editCategoryId').value;
+            const name = document.getElementById('editCategoryName').value;
+
+            const formData = new FormData();
+            formData.append('id', categoryId);
+            formData.append('name', name);
+
+            fetch('/api/categories', {
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Erreur réseau');
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    closeEditCategoryModal();
+                    loadCategories();
+                } else {
+                    console.error('Erreur:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
+        });
+
+        function deleteCategory(categoryId, categoryName) {
+            if (confirm(`Êtes-vous sûr de vouloir supprimer la catégorie "${categoryName}"?`)) {
+                fetch(`/api/categories/${categoryId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error('Erreur réseau');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        loadCategories();
+                    } else {
+                        console.error('Erreur:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

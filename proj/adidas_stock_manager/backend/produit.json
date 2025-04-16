@@ -1,0 +1,26 @@
+[
+    {
+      "name": "Ultraboost 22",
+      "price": 190,
+      "quantity": 100,
+      "category": "Running",
+      "image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/12345/ultraboost-22.jpg",
+      "createdAt": { "$date": "2023-05-10T00:00:00Z" }
+    },
+    {
+      "name": "NMD_R1",
+      "price": 130,
+      "quantity": 75,
+      "category": "Lifestyle",
+      "image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/67890/nmd_r1.jpg",
+      "createdAt": { "$date": "2023-05-10T00:00:00Z" }
+    },
+    {
+      "name": "Stan Smith",
+      "price": 85,
+      "quantity": 120,
+      "category": "Originals",
+      "image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/54321/stan-smith.jpg",
+      "createdAt": { "$date": "2023-05-10T00:00:00Z" }
+    }
+  ]
