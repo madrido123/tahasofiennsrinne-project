@@ -17,6 +17,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Request logger middleware for /api/auth routes
+app.use('/api/auth', (req, res, next) => {
+  console.log(`[Auth Request] ${req.method} ${req.originalUrl} - Body:`, req.body);
+  next();
+});
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, '../'))); // Serve static files from the parent directory
 
@@ -67,7 +73,7 @@ app.get('/backend/backend.php', (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -1,52 +1,116 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Liste des Produits</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
 </head>
-<!-- Firebase scripts removed -->
-<script src="products.js"></script>
-<!-- etc. -->
 <body class="bg-white text-black">
-    <script type="module">
-<!-- Firebase initialization code removed -->
-      </script>
     <div class="bg-yellow-400 p-4 flex justify-between items-center">
         <h1 class="text-black text-2xl font-bold">LISTE DES PRODUITS</h1>
-        <button class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i> Déconnexion
+        <button
+          class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700"
+          onclick="logout()"
+        >
+          <i class="fas fa-sign-out-alt"></i> Déconnexion
         </button>
     </div>
     <div class="flex flex-col md:flex-row">
         <div class="bg-gray-900 text-white p-4 w-full md:w-1/4">
             <ul class="space-y-4">
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="dashboard.html">Tableau de Bord</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="list_product.html">Liste des Produits</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="add_edit_product.html">Ajouter/Modifier Produit</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="stock_logs.html">Historique des Stocks</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="categories.html">Gestion des Catégories</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="suppliers.html">Fournisseurs</a></li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="dashboard.html"
+                      >Tableau de Bord</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="list_product.html"
+                      >Liste des Produits</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="add_edit_product.html"
+                      >Ajouter/Modifier Produit</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="stock_logs.html"
+                      >Historique des Stocks</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="categories.html"
+                      >Gestion des Catégories</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="suppliers.html"
+                      >Fournisseurs</a
+                    >
+                </li>
             </ul>
         </div>
         <div class="p-8 w-full md:w-3/4">
             <h1 class="text-3xl font-bold mb-8">Liste des Produits</h1>
             <div class="flex justify-end mb-4">
-                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" onclick="window.location.href='add_edit_product.html'">
-                    <i class="fas fa-plus"></i> Ajouter Produit
+                <button
+                  class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+                  onclick="window.location.href='add_edit_product.html'"
+                >
+                  <i class="fas fa-plus"></i> Ajouter Produit
                 </button>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Image</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Nom</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Prix</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Quantité</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Catégorie</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Actions</th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Image
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Nom
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Prix
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Quantité
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Catégorie
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="productTableBody">
@@ -58,89 +122,104 @@
     </div>
 
     <script>
-        // Add this to your protected pages (dashboard.html, etc.)
+        function isAuthenticated() {
+            const token = localStorage.getItem('token');
+            return token !== null;
+        }
 
-// Check authentication on page load
-auth.onAuthStateChanged((user) => {
-  if (!user) {
-    // User is not logged in, redirect to login
-    window.location.href = 'login.html';
-  }
-});
-        document.addEventListener('DOMContentLoaded', function() {
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+
+        if (!isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const token = localStorage.getItem('token');
+            options.headers = {
+                Authorization: `Bearer ${token}`,
+                ...options.headers,
+            };
+            const response = await fetch(url, options);
+            if (!response.ok) throw new Error('Erreur réseau');
+            return response.json();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
             loadProducts();
         });
-    
-        function loadProducts() {
-fetch('/api/products')
-                .then(response => {
-                    if (!response.ok) throw new Error('Erreur réseau');
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.status === 'success') {
-                        renderProducts(data.products);
-                    } else {
-                        console.error('Erreur:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                });
+
+        async function loadProducts() {
+            try {
+                const data = await fetchWithAuth('/api/products');
+                if (data.status === 'success') {
+                    renderProducts(data.products);
+                } else {
+                    console.error('Erreur:', data.message);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
         }
-    
+
         function renderProducts(products) {
             const productTableBody = document.getElementById('productTableBody');
             productTableBody.innerHTML = '';
-    
-            products.forEach(product => {
+
+            products.forEach((product) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
-                    <td class="py-2 px-4 border-b border-gray-300"><img src="${product.image}" alt="Image du produit ${product.name}" class="w-16 h-16 object-cover"></td>
+                    <td class="py-2 px-4 border-b border-gray-300">
+                        <img src="${product.image}" alt="Image du produit ${product.name}" class="w-16 h-16 object-cover" />
+                    </td>
                     <td class="py-2 px-4 border-b border-gray-300">${product.name}</td>
                     <td class="py-2 px-4 border-b border-gray-300">${product.price}€</td>
                     <td class="py-2 px-4 border-b border-gray-300">${product.quantity}</td>
                     <td class="py-2 px-4 border-b border-gray-300">${product.category}</td>
                     <td class="py-2 px-4 border-b border-gray-300">
-                        <button class="bg-yellow-500 text-white py-1 px-2 rounded hover:bg-yellow-700 mr-2" onclick="editProduct('${product.id}')">
-                            <i class="fas fa-edit"></i> Modifier
+                        <button
+                          class="bg-yellow-500 text-white py-1 px-2 rounded hover:bg-yellow-700 mr-2"
+                          onclick="editProduct('${product._id}')"
+                        >
+                          <i class="fas fa-edit"></i> Modifier
                         </button>
-                        <button class="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-700" onclick="deleteProduct('${product.id}', '${product.name}')">
-                            <i class="fas fa-trash"></i> Supprimer
+                        <button
+                          class="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-700"
+                          onclick="deleteProduct('${product._id}', '${product.name}')"
+                        >
+                          <i class="fas fa-trash"></i> Supprimer
                         </button>
                     </td>
                 `;
                 productTableBody.appendChild(newRow);
             });
         }
-    
+
         function editProduct(productId) {
             window.location.href = `add_edit_product.html?id=${productId}`;
         }
-    
-        function deleteProduct(productId, productName) {
+
+        async function deleteProduct(productId, productName) {
             if (confirm(`Êtes-vous sûr de vouloir supprimer le produit "${productName}" ?`)) {
-                const formData = new FormData();
-                formData.append('id', productId);
-                
-                fetch('backend/backend.php?action=delete_product', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
+                try {
+                    const response = await fetch(`/api/products/${productId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        },
+                    });
                     if (!response.ok) throw new Error('Erreur réseau');
-                    return response.json();
-                })
-                .then(data => {
+                    const data = await response.json();
                     if (data.status === 'success') {
                         loadProducts();
                     } else {
                         console.error('Erreur:', data.message);
                     }
-                })
-                .catch(error => {
+                } catch (error) {
                     console.error('Erreur:', error);
-                });
+                }
             }
         }
     </script>

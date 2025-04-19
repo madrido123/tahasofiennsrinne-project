@@ -1,33 +1,70 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Historique des Stocks</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
 </head>
-<!-- Firebase scripts removed -->
-<script src="products.js"></script>
-<!-- etc. -->
 <body class="bg-white text-black">
-    <script type="module">
-<!-- Firebase initialization code removed -->
-      </script>
     <div class="bg-yellow-400 p-4 flex justify-between items-center">
         <h1 class="text-black text-2xl font-bold">HISTORIQUE DES STOCKS</h1>
-        <button class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i> Déconnexion
+        <button
+          class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700"
+          onclick="logout()"
+        >
+          <i class="fas fa-sign-out-alt"></i> Déconnexion
         </button>
     </div>
     <div class="flex flex-col md:flex-row">
         <div class="bg-gray-900 text-white p-4 w-full md:w-1/4">
             <ul class="space-y-4">
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="dashboard.html">Tableau de Bord</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="list_product.html">Liste des Produits</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="add_edit_product.html">Ajouter/Modifier Produit</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="stock_logs.html">Historique des Stocks</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="categories.html">Gestion des Catégories</a></li>
-                <li><a class="block py-2 px-4 rounded hover:bg-gray-700" href="suppliers.html">Fournisseurs</a></li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="dashboard.html"
+                      >Tableau de Bord</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="list_product.html"
+                      >Liste des Produits</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="add_edit_product.html"
+                      >Ajouter/Modifier Produit</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="stock_logs.html"
+                      >Historique des Stocks</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="categories.html"
+                      >Gestion des Catégories</a
+                    >
+                </li>
+                <li>
+                    <a
+                      class="block py-2 px-4 rounded hover:bg-gray-700"
+                      href="suppliers.html"
+                      >Fournisseurs</a
+                    >
+                </li>
             </ul>
         </div>
         <div class="p-8 w-full md:w-3/4">
@@ -35,20 +72,28 @@
             <div class="mb-4 flex justify-between">
                 <div>
                     <label class="block text-gray-700">Filtrer par :</label>
-                    <select id="filterType" class="p-2 border border-gray-300 rounded mt-1" onchange="loadStockLogs()">
-                        <option value="all">Tous les mouvements</option>
-                        <option value="Ajout">Ajouts</option>
-                        <option value="Retrait">Retraits</option>
-                        <option value="Suppression">Suppressions</option>
+                    <select
+                      id="filterType"
+                      class="p-2 border border-gray-300 rounded mt-1"
+                      onchange="loadStockLogs()"
+                    >
+                      <option value="all">Tous les mouvements</option>
+                      <option value="Ajout">Ajouts</option>
+                      <option value="Retrait">Retraits</option>
+                      <option value="Suppression">Suppressions</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-gray-700">Période :</label>
-                    <select id="filterPeriod" class="p-2 border border-gray-300 rounded mt-1" onchange="loadStockLogs()">
-                        <option value="all">Toutes périodes</option>
-                        <option value="today">Aujourd'hui</option>
-                        <option value="week">Cette semaine</option>
-                        <option value="month">Ce mois</option>
+                    <select
+                      id="filterPeriod"
+                      class="p-2 border border-gray-300 rounded mt-1"
+                      onchange="loadStockLogs()"
+                    >
+                      <option value="all">Toutes périodes</option>
+                      <option value="today">Aujourd'hui</option>
+                      <option value="week">Cette semaine</option>
+                      <option value="month">Ce mois</option>
                     </select>
                 </div>
             </div>
@@ -56,10 +101,26 @@
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Date et Heure</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Nom du Produit</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Quantité</th>
-                            <th class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight">Action</th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Date et Heure
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Nom du Produit
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Quantité
+                            </th>
+                            <th
+                              class="py-2 px-4 border-b-2 border-gray-300 text-left leading-tight"
+                            >
+                              Action
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="stockLogsTableBody">
@@ -71,44 +132,57 @@
     </div>
 
     <script>
-        // Add this to your protected pages (dashboard.html, etc.)
+        function isAuthenticated() {
+            const token = localStorage.getItem('token');
+            return token !== null;
+        }
 
-// Check authentication on page load
-auth.onAuthStateChanged((user) => {
-  if (!user) {
-    // User is not logged in, redirect to login
-    window.location.href = 'login.html';
-  }
-});
-        document.addEventListener('DOMContentLoaded', function() {
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        }
+
+        if (!isAuthenticated()) {
+            window.location.href = 'login.html';
+        }
+
+        async function fetchWithAuth(url, options = {}) {
+            const token = localStorage.getItem('token');
+            options.headers = {
+                Authorization: `Bearer ${token}`,
+                ...options.headers,
+            };
+            const response = await fetch(url, options);
+            if (!response.ok) throw new Error('Erreur réseau');
+            return response.json();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
             loadStockLogs();
         });
-    
-        function loadStockLogs() {
+
+        async function loadStockLogs() {
             const filterType = document.getElementById('filterType').value;
             const filterPeriod = document.getElementById('filterPeriod').value;
-            
-fetch(`/api/stock-logs?type=${filterType}&period=${filterPeriod}`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Erreur réseau');
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.status === 'success') {
-                        renderStockLogs(data.logs);
-                    } else {
-                        console.error('Erreur:', data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                });
+
+            try {
+                const data = await fetchWithAuth(
+                    `/api/stock-logs?type=${filterType}&period=${filterPeriod}`
+                );
+                if (data.status === 'success') {
+                    renderStockLogs(data.logs);
+                } else {
+                    console.error('Erreur:', data.message);
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
         }
-    
+
         function renderStockLogs(logs) {
             const stockLogsTableBody = document.getElementById('stockLogsTableBody');
             stockLogsTableBody.innerHTML = '';
-    
+
             if (logs.length === 0) {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -117,8 +191,8 @@ fetch(`/api/stock-logs?type=${filterType}&period=${filterPeriod}`)
                 stockLogsTableBody.appendChild(row);
                 return;
             }
-    
-            logs.forEach(log => {
+
+            logs.forEach((log) => {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td class="py-2 px-4 border-b border-gray-300">${log.datetime}</td>

@@ -61,7 +61,7 @@ exports.deleteSupplier = async (req, res) => {
       return res.status(404).json({ status: 'error', message: 'Supplier not found' });
     }
 
-    await Supplier.findByIdAndRemove(req.params.id);
+    await Supplier.findByIdAndDelete(req.params.id);
     res.json({ status: 'success', message: 'Supplier removed' });
   } catch (err) {
     console.error(err.message);

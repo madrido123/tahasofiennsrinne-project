@@ -98,7 +98,7 @@ exports.deleteProduct = async (req, res) => {
     });
     await newLog.save();
 
-    await Product.findByIdAndRemove(req.params.id);
+    await Product.findByIdAndDelete(req.params.id);
     res.json({ status: 'success', message: 'Product removed' });
   } catch (err) {
     console.error(err.message);
