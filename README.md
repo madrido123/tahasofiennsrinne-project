@@ -16,7 +16,8 @@ Un outil essentiel pour optimiser les opérations quotidiennes de gestion des st
 
 ### pour trouver la configiration de la base
 -  on va dans le dossier backend 
-    apres dossier config  on trouve le fichier de la connection a la base db.js .  
+    apres dossier config  on trouve le fichier de la connection a la base db.js .
+   et aussi dans le mongoDB compass il faut qu'elle soit connecter a "ac-9bpavr9"
 
 
 ## v1.1.0
